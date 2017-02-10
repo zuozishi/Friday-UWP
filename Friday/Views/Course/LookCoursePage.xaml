@@ -1,0 +1,233 @@
+﻿<Page
+    x:Class="Friday.Views.Course.LookCoursePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Friday.Views.Course"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="FullButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="8,4,8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledTransparentBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Background="White">
+        <Grid>
+            <Grid Height="50" BorderBrush="{ThemeResource Friday-BorderBrush}" BorderThickness="0,0,0,0.5" VerticalAlignment="Top">
+                <AppBarButton Click="GoBackBtn_Clicked" Foreground="{ThemeResource Friday-Foreground}" Background="{x:Null}" VerticalAlignment="Stretch" Icon="Back"></AppBarButton>
+                <TextBlock FontSize="18" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Title"></TextBlock>
+            </Grid>
+            <ScrollViewer Margin="0,50,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid Height="20" Margin="10,0" BorderThickness="0,0,0,0.5" BorderBrush="{ThemeResource Friday-Foreground}" VerticalAlignment="Top">
+                            <TextBlock Foreground="{ThemeResource Friday-Foreground}" FontSize="12">课堂信息</TextBlock>
+                        </Grid>
+                        <ListView x:Name="CourseInfoList" SelectionMode="None" Margin="0,20,0,0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Padding" Value="0"></Setter>
+                                    <Setter Property="Margin" Value="10,0"></Setter>
+                                    <Setter Property="BorderBrush" Value="{ThemeResource Friday-BorderBrush}"></Setter>
+                                    <Setter Property="BorderThickness" Value="0,0,0,0.5"></Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListViewItem>
+                                <Grid Height="30">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">名称</TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="#FF6E6E6E" Text="{Binding Path=name}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                    <Button Grid.Column="1" HorizontalAlignment="Right" Click="EditCourseBtn_Clicked">编辑</Button>
+                                </Grid>
+                            </ListViewItem>
+                            <ListViewItem>
+                                <Grid Height="30">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">教室</TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="#FF6E6E6E" Text="{Binding Path=classroom}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                </Grid>
+                            </ListViewItem>
+                            <ListViewItem>
+                                <Grid Height="30">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">老师</TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="#FF6E6E6E" Text="{Binding Path=teacher}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                </Grid>
+                            </ListViewItem>
+                            <ListViewItem>
+                                <Grid Height="30">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">节数</TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="#FF6E6E6E" Text="{Binding Path=sectext}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"></TextBlock>
+                                </Grid>
+                            </ListViewItem>
+                            <ListViewItem>
+                                <Grid Height="30">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">周数</TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="#FF6E6E6E" Text="{Binding Path=weektext}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"></TextBlock>
+                                </Grid>
+                            </ListViewItem>
+                        </ListView>
+                    </Grid>
+                    <Grid x:Name="ClassmateGrid" Visibility="Collapsed" Grid.Row="1">
+                        <Grid Height="20" Margin="10,0" BorderThickness="0,0,0,0.5" BorderBrush="{ThemeResource Friday-Foreground}" VerticalAlignment="Top">
+                            <TextBlock Foreground="{ThemeResource Friday-Foreground}" FontSize="12">课堂同学</TextBlock>
+                        </Grid>
+                        <Grid Height="35" Margin="10,20,10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">同学</TextBlock>
+                            <TextBlock Grid.Column="1" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"><Run Text="{Binding}"></Run>位课堂同学</TextBlock>
+                            <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Content="查看">
+                                <Button.Flyout>
+                                    <Flyout Placement="Full">
+                                        <ScrollViewer>
+                                            <ListView x:Name="ClassmateList" SelectionMode="None">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                        <Setter Property="Padding" Value="0"></Setter>
+                                                        <Setter Property="Margin" Value="10,0"></Setter>
+                                                        <Setter Property="BorderBrush" Value="{ThemeResource Friday-BorderBrush}"></Setter>
+                                                        <Setter Property="BorderThickness" Value="0,0,0,0.5"></Setter>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Height="55">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="55"/>
+                                                                <ColumnDefinition/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Ellipse Grid.Column="0" Margin="5">
+                                                                <Ellipse.Fill>
+                                                                    <ImageBrush ImageSource="{Binding fullAvatarUrl}" Stretch="UniformToFill"/>
+                                                                </Ellipse.Fill>
+                                                            </Ellipse>
+                                                            <Grid Grid.Column="1">
+                                                                <StackPanel HorizontalAlignment="Left" Margin="5,5,0,5">
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <TextBlock Foreground="Black" Text="{Binding nickName}"></TextBlock>
+                                                                        <Image Margin="5,0,0,0" Width="20" Height="20" Source="{Binding sex}"></Image>
+                                                                    </StackPanel>
+                                                                    <TextBlock Margin="0,5" Foreground="#FF6A6A6A" FontSize="13"><Run Text="{Binding grade}"></Run>级 <Run Text="{Binding academyName}"></Run></TextBlock>
+                                                                </StackPanel>
+                                                                <Border Visibility="{Binding hassignature}" CornerRadius="5" HorizontalAlignment="Right" VerticalAlignment="Center" Background="#FFCDCDCD">
+                                                                    <TextBlock TextWrapping="WrapWholeWords" Margin="5" Text="{Binding signature}"></TextBlock>
+                                                                </Border>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                         </ScrollViewer>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid Height="45" Margin="10,5" BorderThickness="0,0.5,0,0" BorderBrush="#FFCB3D3D" VerticalAlignment="Top">
+                            <Button Click="DelCourseBtn_Clicked" Height="30" Style="{StaticResource FullButtonStyle}" HorizontalAlignment="Stretch" Background="{x:Null}" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Margin="0,0,5,0" Width="15" Height="15" FontFamily="Segoe MDL2 Assets" Text="&#xE74D;" Foreground="#FFCB3D3D"></TextBlock>
+                                    <TextBlock Foreground="#FFCB3D3D" FontSize="15">删除本节课</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,60 @@
+﻿<Page
+    x:Class="Friday.Views.UserPages.RegisterPage_Xueyuan"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Friday.Views.UserPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="White" Height="50" VerticalAlignment="Top" BorderBrush="{ThemeResource Friday-BorderBrush}" BorderThickness="0,0,0,0.5">
+            <AppBarButton Click="GoBackBtn_Clicked" Foreground="{ThemeResource Friday-Foreground}" Background="{x:Null}" VerticalAlignment="Stretch" Icon="Back"></AppBarButton>
+            <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">选择院系</TextBlock>
+        </Grid>
+        <Grid Margin="0,50,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="#FFEDF0F2">
+                <ProgressBar x:Name="progressBar" Visibility="Collapsed" IsIndeterminate="True" Background="{x:Null}" VerticalAlignment="Top"/>
+                <TextBox x:Name="searchBox" IsEnabled="False" Margin="5" Padding="5" BorderThickness="0.5" PlaceholderText="请输入你的学院" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" TextChanged="TextBox_TextChanged"/>
+            </Grid>
+            <ScrollViewer x:Name="allGrid" Grid.Row="1">
+                <Grid>
+                    <ListView SelectionMode="Single" SelectedIndex="-1" SelectionChanged="XueyuanSelected" ItemsSource="{x:Bind allxueyuan,Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="BorderThickness" Value="0,0,0,0.5"/>
+                                <Setter Property="BorderBrush" Value="{ThemeResource Friday-BorderBrush}"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding name}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ScrollViewer>
+            <ScrollViewer x:Name="searchGrid" Visibility="Collapsed" Grid.Row="1">
+                <Grid>
+                    <ListView SelectionMode="Single" SelectedIndex="-1" SelectionChanged="XueyuanSelected" ItemsSource="{x:Bind searchxueyuan,Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="BorderThickness" Value="0,0,0,0.5"/>
+                                <Setter Property="BorderBrush" Value="{ThemeResource Friday-BorderBrush}"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding name}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

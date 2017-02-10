@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="Friday.Views.MainPages.SocialPages.NewsListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Friday.Views.MainPages.SocialPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:pr="using:PullToRefresh.UWP"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid  Height="50" BorderBrush="{ThemeResource Friday-BorderBrush}" BorderThickness="0,0,0,0.5" VerticalAlignment="Top">
+            <AppBarButton Click="GoBackBtn_Clicked" Foreground="{ThemeResource Friday-Foreground}" Background="{x:Null}" VerticalAlignment="Stretch" Icon="Back"></AppBarButton>
+            <TextBlock FontSize="18" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">新鲜事</TextBlock>
+        </Grid>
+        <pr:PullToRefreshBox Margin="0,50,0,0">
+            <ScrollViewer ViewChanged="ScrollViewer_ViewChanged">
+                <ListView SelectionChanged="ListView_SelectionChanged" ItemsSource="{x:Bind obsdata}" SelectionMode="Single">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="BorderThickness" Value="0,0,0,0.5"/>
+                            <Setter Property="Margin" Value="0,0,0,5"/>
+                            <Setter Property="BorderBrush" Value="{ThemeResource Friday-BorderBrush}"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="80">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Image Stretch="UniformToFill" Source="{Binding imgurl}" Grid.Column="0"/>
+                                <Grid Grid.Column="1" Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" TextWrapping="WrapWholeWords" Text="{Binding title}"/>
+                                    <TextBlock Grid.Row="1" FontSize="12" Foreground="Gray"><Run Text="{Binding likeCount}"/>赞·<Run Text="{Binding comments}"/>评论</TextBlock>
+                                    <TextBlock Grid.Row="2" FontSize="12" Foreground="Gray" Text="{Binding issueTime_s}"/>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+        </pr:PullToRefreshBox>
+        <ProgressRing x:Name="prgs" Width="50" Height="50"/>
+    </Grid>
+</Page>

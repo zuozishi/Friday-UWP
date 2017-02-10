@@ -1,0 +1,403 @@
+﻿<Page
+    x:Class="Friday.Views.Course.EditCoursePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Friday.Views.Course"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+    </Page.Resources>
+    <Grid Background="White">
+        <Grid  Height="50" BorderBrush="{ThemeResource Friday-BorderBrush}" BorderThickness="0,0,0,0.5" VerticalAlignment="Top">
+            <AppBarButton Click="GoBackBtn_Clicked" Foreground="{ThemeResource Friday-Foreground}" Background="{x:Null}" VerticalAlignment="Stretch" Icon="Back"></AppBarButton>
+            <TextBlock FontSize="18" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">编辑课程</TextBlock>
+            <Button Foreground="{ThemeResource Friday-Foreground}" Background="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="AddBtn_Clicked">确定</Button>
+        </Grid>
+        <Grid Height="20" Margin="10,55,10,0" BorderThickness="0,0,0,0.5" BorderBrush="{ThemeResource Friday-Foreground}" VerticalAlignment="Top">
+            <TextBlock Foreground="{ThemeResource Friday-Foreground}" FontSize="12">当前课程</TextBlock>
+        </Grid>
+        <ScrollViewer Margin="0,80,0,0">
+            <ListView x:Name="mainListView" SelectionChanged="mainListView_SelectionChanged">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="0"></Setter>
+                        <Setter Property="Margin" Value="10,0"></Setter>
+                        <Setter Property="BorderBrush" Value="{ThemeResource Friday-BorderBrush}"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,0,0.5"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListViewItem>
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">课程名称</TextBlock>
+                        <TextBox Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF6E6E6E" Text="{x:Bind Path=course.name,Mode=TwoWay}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem>
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">老师</TextBlock>
+                        <TextBox Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF6E6E6E" Text="{x:Bind Path=course.teacher,Mode=TwoWay}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem>
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">周数</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#FF6E6E6E" Text="{x:Bind Path=course.weektext,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"></TextBlock>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem>
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">节数</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#FF6E6E6E" Text="{x:Bind Path=course.sectext,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"></TextBlock>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem>
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Foreground="Black" VerticalAlignment="Center">地点</TextBlock>
+                        <TextBox Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF6E6E6E" Text="{x:Bind Path=course.classroom,Mode=TwoWay}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </Grid>
+                </ListViewItem>
+            </ListView>
+        </ScrollViewer>
+        <ContentDialog x:Name="SecDialog" Title="选择上课节数" PrimaryButtonText="取消" SecondaryButtonText="确定">
+            <ContentDialog.Template>
+                <ControlTemplate TargetType="ContentDialog">
+                    <Border x:Name="Container">
+                        <Grid x:Name="LayoutRoot">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="BackgroundElement"
+                                    Background="{TemplateBinding Background}"
+                                    FlowDirection="{TemplateBinding FlowDirection}"
+                                    BorderThickness="0"
+                                    MaxWidth="{TemplateBinding MaxWidth}"
+                                    MaxHeight="{TemplateBinding MaxHeight}"
+                                    MinWidth="{TemplateBinding MinWidth}"
+                                    MinHeight="{TemplateBinding MinHeight}"
+                                    CornerRadius="8"    >
+                                <Grid x:Name="DialogSpace" VerticalAlignment="Stretch">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <ScrollViewer x:Name="ContentScrollViewer"
+                                            HorizontalScrollBarVisibility="Disabled"
+                                            VerticalScrollBarVisibility="Disabled"
+                                            ZoomMode="Disabled"
+                                            Margin="{ThemeResource ContentDialogContentScrollViewerMargin}"
+                                            IsTabStop="False">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <ContentControl x:Name="Title"
+                                                Margin="{ThemeResource ContentDialogTitleMargin}"
+                                                Content="{TemplateBinding Title}"
+                                                ContentTemplate="{TemplateBinding TitleTemplate}"
+                                                FontSize="20"
+                                                FontFamily="XamlAutoFontFamily"
+                                                FontWeight="Normal"
+                                                Foreground="#FF575757"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top"
+                                                IsTabStop="False"
+                                                MaxHeight="{ThemeResource ContentDialogTitleMaxHeight}" >
+                                                <ContentControl.Template>
+                                                    <ControlTemplate TargetType="ContentControl">
+                                                        <ContentPresenter
+                                                            Content="{TemplateBinding Content}"
+                                                            MaxLines="2"
+                                                            TextWrapping="Wrap"
+                                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                            Margin="{TemplateBinding Padding}"
+                                                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                    </ControlTemplate>
+                                                </ContentControl.Template>
+                                            </ContentControl>
+                                            <ContentPresenter x:Name="Content"
+                                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                Content="{TemplateBinding Content}"
+                                                FontSize="{ThemeResource ControlContentThemeFontSize}"
+                                                FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+                                                Margin="{ThemeResource ContentDialogContentMargin}"
+                                                Foreground="{TemplateBinding Foreground}"
+                                                Grid.Row="1"
+                                                TextWrapping="Wrap" />
+                                        </Grid>
+                                    </ScrollViewer>
+                                    <Grid x:Name="CommandSpace" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border x:Name="Button1Host"
+                                            Margin="{ThemeResource ContentDialogButton1HostMargin}"
+                                            MinWidth="{ThemeResource ContentDialogButtonMinWidth}"
+                                            MaxWidth="{ThemeResource ContentDialogButtonMaxWidth}"
+                                            Height="{ThemeResource ContentDialogButtonHeight}"
+                                            HorizontalAlignment="Stretch"
+                                         BorderBrush="#FFBFBFBF" BorderThickness="0.25" >
+                                            <Border.Resources>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                                    <Setter Property="Foreground" Value="#FF0799FC"></Setter>
+                                                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                                                    <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                                                </Style>
+                                            </Border.Resources>
+                                        </Border>
+                                        <Border x:Name="Button2Host"
+                                            Margin="{ThemeResource ContentDialogButton2HostMargin}"
+                                            MinWidth="{ThemeResource ContentDialogButtonMinWidth}"
+                                            MaxWidth="{ThemeResource ContentDialogButtonMaxWidth}"
+                                            Height="{ThemeResource ContentDialogButtonHeight}"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Stretch" BorderBrush="#FFBFBFBF" BorderThickness="0.25" >
+                                            <Border.Resources>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                                    <Setter Property="Foreground" Value="#FF0799FC"></Setter>
+                                                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                                                    <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                                                </Style>
+                                            </Border.Resources>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </ContentDialog.Template>
+            <Grid Height="150" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer Grid.Column="0" BorderBrush="#FF959595" BorderThickness="0,0,0.5,0">
+                    <ListView>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center">周<Run Text="{Binding}"></Run></TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+                <ScrollViewer Grid.Column="1" BorderBrush="#FF959595" BorderThickness="0,0,0.5,0">
+                    <ListView>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center">第<Run Text="{Binding}"></Run>节</TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+                <ScrollViewer Grid.Column="2">
+                    <ListView>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center">到<Run Text="{Binding}"></Run>节</TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+            </Grid>
+        </ContentDialog>
+        <ContentDialog x:Name="WeekDialog" Title="周数选择" PrimaryButtonText="取消" SecondaryButtonText="确定">
+            <ContentDialog.Template>
+                <ControlTemplate TargetType="ContentDialog">
+                    <Border x:Name="Container">
+                        <Grid x:Name="LayoutRoot">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="BackgroundElement"
+                                    Background="{TemplateBinding Background}"
+                                    FlowDirection="{TemplateBinding FlowDirection}"
+                                    BorderThickness="0"
+                                    MaxWidth="{TemplateBinding MaxWidth}"
+                                    MaxHeight="{TemplateBinding MaxHeight}"
+                                    MinWidth="{TemplateBinding MinWidth}"
+                                    MinHeight="{TemplateBinding MinHeight}"
+                                    CornerRadius="8"    >
+                                <Grid x:Name="DialogSpace" VerticalAlignment="Stretch">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <ScrollViewer x:Name="ContentScrollViewer"
+                                            HorizontalScrollBarVisibility="Disabled"
+                                            VerticalScrollBarVisibility="Disabled"
+                                            ZoomMode="Disabled"
+                                            Margin="{ThemeResource ContentDialogContentScrollViewerMargin}"
+                                            IsTabStop="False">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <ContentControl x:Name="Title"
+                                                Margin="{ThemeResource ContentDialogTitleMargin}"
+                                                Content="{TemplateBinding Title}"
+                                                ContentTemplate="{TemplateBinding TitleTemplate}"
+                                                FontSize="20"
+                                                FontFamily="XamlAutoFontFamily"
+                                                FontWeight="Normal"
+                                                Foreground="#FF575757"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top"
+                                                IsTabStop="False"
+                                                MaxHeight="{ThemeResource ContentDialogTitleMaxHeight}" >
+                                                <ContentControl.Template>
+                                                    <ControlTemplate TargetType="ContentControl">
+                                                        <ContentPresenter
+                                                            Content="{TemplateBinding Content}"
+                                                            MaxLines="2"
+                                                            TextWrapping="Wrap"
+                                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                            Margin="{TemplateBinding Padding}"
+                                                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                    </ControlTemplate>
+                                                </ContentControl.Template>
+                                            </ContentControl>
+                                            <ContentPresenter x:Name="Content"
+                                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                Content="{TemplateBinding Content}"
+                                                FontSize="{ThemeResource ControlContentThemeFontSize}"
+                                                FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+                                                Margin="{ThemeResource ContentDialogContentMargin}"
+                                                Foreground="{TemplateBinding Foreground}"
+                                                Grid.Row="1"
+                                                TextWrapping="Wrap" />
+                                        </Grid>
+                                    </ScrollViewer>
+                                    <Grid x:Name="CommandSpace" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border x:Name="Button1Host"
+                                            Margin="{ThemeResource ContentDialogButton1HostMargin}"
+                                            MinWidth="{ThemeResource ContentDialogButtonMinWidth}"
+                                            MaxWidth="{ThemeResource ContentDialogButtonMaxWidth}"
+                                            Height="{ThemeResource ContentDialogButtonHeight}"
+                                            HorizontalAlignment="Stretch"
+                                         BorderBrush="#FFBFBFBF" BorderThickness="0.25" >
+                                            <Border.Resources>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                                    <Setter Property="Foreground" Value="#FF0799FC"></Setter>
+                                                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                                                    <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                                                </Style>
+                                            </Border.Resources>
+                                        </Border>
+                                        <Border x:Name="Button2Host"
+                                            Margin="{ThemeResource ContentDialogButton2HostMargin}"
+                                            MinWidth="{ThemeResource ContentDialogButtonMinWidth}"
+                                            MaxWidth="{ThemeResource ContentDialogButtonMaxWidth}"
+                                            Height="{ThemeResource ContentDialogButtonHeight}"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Stretch" BorderBrush="#FFBFBFBF" BorderThickness="0.25" >
+                                            <Border.Resources>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                                    <Setter Property="Foreground" Value="#FF0799FC"></Setter>
+                                                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                                                    <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                                                </Style>
+                                            </Border.Resources>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </ContentDialog.Template>
+            <Grid Height="195" Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="15,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">单周</Button>
+                    <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">双周</Button>
+                    <ToggleButton Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">全选</ToggleButton>
+                </Grid>
+            </Grid>
+        </ContentDialog>
+    </Grid>
+</Page>

@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="DiDiLite.MapPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DiDiLite"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="White" Height="50" VerticalAlignment="Top">
+            <Button Width="50" Click="BackBtnVlicked" Foreground="Black" Background="{x:Null}" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                <SymbolIcon Symbol="Back"/>
+            </Button>
+            <TextBlock FontSize="18" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Text="选择位置"/>
+            <Button Width="50" Click="AcceptBtnVlicked" Foreground="Black" Background="{x:Null}" VerticalAlignment="Stretch" HorizontalAlignment="Right">
+                <SymbolIcon Symbol="Accept"/>
+            </Button>
+        </Grid>
+        <Grid Margin="0,50,0,0">
+            <Maps:MapControl x:Name="mapView" MapServiceToken="btqO9q7l0VTXJUTt7NNX~MLOsb0DVGFHWZu1R1jo_8g~AumrRs9-0KrLdMkGZng3i21YyrRakBzdAwrDn7gyqjsOIqCc_UyIwM6lz2Lz67mQ" MapTapped="mapView_MapTapped"></Maps:MapControl>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,125 @@
+﻿<Page
+    x:Class="Friday.Views.MainPages.SocialPages.NewDetalPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Friday.Views.MainPages.SocialPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid  Height="50" BorderBrush="{ThemeResource Friday-BorderBrush}" BorderThickness="0,0,0,0.5" VerticalAlignment="Top">
+            <AppBarButton Click="GoBackBtn_Clicked" Foreground="{ThemeResource Friday-Foreground}" Background="{x:Null}" VerticalAlignment="Stretch" Icon="Back"></AppBarButton>
+            <TextBlock FontSize="18" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">新鲜事</TextBlock>
+            <Button Content="查看评论" Foreground="{ThemeResource Friday-Foreground}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="{x:Null}">
+                <Button.Flyout>
+                    <Flyout ScrollViewer.ZoomMode="Enabled" Placement="Full">
+                        <Grid>
+                            <Grid Height="30" Background="#FFE0E0E0" BorderThickness="0,0.5,0,0.5" BorderBrush="{ThemeResource Friday-BorderBrush}" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Margin="5,0" Height="25" Width="25">
+                                        <Ellipse Width="25" Height="25" Fill="#FF46ABDA"></Ellipse>
+                                        <FontIcon Width="20" Height="20" FontFamily="Segoe MDL2 Assets" Foreground="White" Glyph="&#xE90A;"></FontIcon>
+                                    </Grid>
+                                    <TextBlock VerticalAlignment="Center">评论<Run x:Name="CommentNum">0</Run>条</TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Margin="0,30,0,0" Background="White">
+                                <Grid x:Name="NoCommentGrid" Visibility="Collapsed" Height="250">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Height="100" Width="100" Source="ms-appx:///Assets/images/ic_treehole_no_comments.png"></Image>
+                                        <TextBlock FontSize="13" HorizontalAlignment="Center" Foreground="#FF5F5F5F">还没有评论,你来试一试?</TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <ListView x:Name="CommentList" SelectionMode="None">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="BorderBrush" Value="{ThemeResource Friday-BorderBrush}"/>
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="BorderThickness" Value="0,0,0,0.5"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="50"/>
+                                                        <RowDefinition Height="auto"/>
+                                                        <RowDefinition Height="auto"/>
+                                                        <RowDefinition Height="auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Background="White" Grid.Row="0">
+                                                        <StackPanel Margin="10,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                                            <Ellipse Width="45" Height="45">
+                                                                <Ellipse.Fill>
+                                                                    <ImageBrush ImageSource="{Binding student.fullAvatarUrl}"></ImageBrush>
+                                                                </Ellipse.Fill>
+                                                            </Ellipse>
+                                                            <StackPanel Margin="5,0,0,0" VerticalAlignment="Center">
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Foreground="Black"><Run Text="{Binding student.nickName}"></Run>（<Run Text="{Binding floor}"></Run>楼）</TextBlock>
+                                                                    <Image Margin="5,0,0,0" Width="20" Height="20" Source="{Binding student.sex}"></Image>
+                                                                    <Grid Width="30" Height="20">
+                                                                        <Border Background="#FFF1973D" BorderThickness="2" CornerRadius="10">
+                                                                            <TextBlock Foreground="White" FontSize="13">Lv<Run Text="{Binding student.rate}"></Run></TextBlock>
+                                                                        </Border>
+                                                                    </Grid>
+                                                                </StackPanel>
+                                                                <TextBlock FontSize="13" Foreground="#FF878787" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="{Binding publishtime}"></Run> 来自[<Run Text="{Binding schoolName}"></Run>]</TextBlock>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <ScrollViewer Grid.Row="1" Margin="55,0,35,0" Content="{Binding ContentUI}"></ScrollViewer>
+                                                    <Grid Grid.Row="2" Visibility="{Binding hasmore}" Margin="55,0,35,0" Background="#FF54A29E">
+                                                        <ScrollViewer Margin="5,0,0,0" Content="{Binding MoreContentUI}"></ScrollViewer>
+                                                    </Grid>
+                                                    <Button Grid.Row="3" Height="30" Margin="0,0,35,0" Visibility="{Binding hasmore}" Foreground="{ThemeResource Friday-Foreground}" Background="{x:Null}" HorizontalAlignment="Right" Click="CommentDialogBtnClicked" DataContext="{Binding}">查看对话</Button>
+                                                </Grid>
+                                                <FontIcon Margin="0,0,10,0" Width="20" Height="20" FontFamily="Segoe MDL2 Assets" Foreground="{ThemeResource Friday-Foreground}" Glyph="&#xE90A;" HorizontalAlignment="Right" VerticalAlignment="Center"></FontIcon>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Grid>
+                        </Grid>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+        <WebView Grid.Row="0" x:Name="contentView" Margin="0,50,0,50"/>
+        <Grid VerticalAlignment="Bottom" Background="#FFB4B4B4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <AppBarButton Grid.Column="0" Width="50" Height="50" Icon="Emoji" Foreground="Black">
+                    <AppBarButton.Flyout>
+                        <Flyout>
+                            <ScrollViewer Width="270" Height="249">
+                                <GridView x:Name="FaceGridView" SelectionMode="None">
+                                    <GridView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Height="50" Width="50">
+                                                <Image Width="30" Height="30" Source="{Binding}"></Image>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GridView.ItemTemplate>
+                                </GridView>
+                            </ScrollViewer>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <TextBox Grid.Column="1" x:Name="SendCommentTextBox" Height="40" PlaceholderText="点击输入你的评论"></TextBox>
+                <AppBarButton Grid.Column="2" Width="50" Height="50" Icon="Send" Foreground="Black" Click="SendCommentBtnClicked"></AppBarButton>
+            </Grid>
+        </Grid>
+        <ProgressRing x:Name="LoadProgress" Width="50" Height="50" IsActive="False"></ProgressRing>
+    </Grid>
+</Page>

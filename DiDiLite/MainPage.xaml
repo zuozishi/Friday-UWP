@@ -1,0 +1,18 @@
+﻿<Page
+    x:Class="DiDiLite.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DiDiLite"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Transparent">
+        <Image Width="100" Height="100" Source="Assets/SmallTile.png" Stretch="UniformToFill"/>
+        <StackPanel Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <ProgressRing IsActive="True" Margin="3"/>
+            <TextBlock Margin="3" FontSize="18" Text="正在定位"/>
+            <Button x:Name="gotoBtn" Margin="3" Visibility="Collapsed" Click="gotoBtn_Click" Content="跳过" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Page>
