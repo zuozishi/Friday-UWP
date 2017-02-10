@@ -19,7 +19,7 @@
             </Button>
         </Grid>
         <Grid Margin="0,50,0,0">
-            <Maps:MapControl x:Name="mapView" MapServiceToken="btqO9q7l0VTXJUTt7NNX~MLOsb0DVGFHWZu1R1jo_8g~AumrRs9-0KrLdMkGZng3i21YyrRakBzdAwrDn7gyqjsOIqCc_UyIwM6lz2Lz67mQ" MapTapped="mapView_MapTapped"></Maps:MapControl>
+            <Maps:MapControl x:Name="mapView" MapTapped="mapView_MapTapped"></Maps:MapControl>
         </Grid>
     </Grid>
 </Page>
