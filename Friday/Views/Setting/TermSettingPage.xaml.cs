@@ -83,7 +83,7 @@ namespace Friday.Views.Setting
                         var json = await Class.HttpPostUntil.HttpPost(Class.Data.Urls.Course.switchTerm, new Windows.Web.Http.HttpFormUrlEncodedContent(postdata));
                         if (json != null && json.Contains("1"))
                         {
-                            await Class.UserManager.Login("15809628770", "www.123123");
+                            await Class.UserManager.Login(null, null, true);
                             Frame.GoBack();
                         }
                         else
@@ -167,7 +167,7 @@ namespace Friday.Views.Setting
                         var json = await Class.HttpPostUntil.HttpPost(Class.Data.Urls.Course.createNewTerm, new Windows.Web.Http.HttpFormUrlEncodedContent(postdata));
                         if (json != null && json.Contains("nowWeek"))
                         {
-                            await Class.UserManager.Login("15809628770", "www.123123");
+                            await Class.UserManager.Login(null, null, true);
                             Frame.GoBack();
                         }
                         else
@@ -216,7 +216,7 @@ namespace Friday.Views.Setting
                                     break;
                                 }
                             }
-                            await Class.UserManager.Login("15809628770", "www.123123");
+                            await Class.UserManager.Login(null, null, true);
                         }
                         else
                         {
