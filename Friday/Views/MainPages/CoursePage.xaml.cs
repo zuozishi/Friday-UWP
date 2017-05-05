@@ -182,6 +182,7 @@ namespace Friday.Views.MainPages
         private async void LoadCoursebg()
         {
             var picpath = (string)localSetting.Values["coursebg"];
+            if (picpath == null) picpath = "ms-appx:///Assets/images/CoursePics/1.png";
             if (picpath.Contains("ms-appx"))
             {
                 var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri(picpath));
@@ -306,15 +307,18 @@ namespace Friday.Views.MainPages
                         btn.Click += CourseBtn_Clicked;
                         Grid.SetColumn(btn, i);
                         Grid.SetRow(btn, j);
-                        var course = await Class.Model.CourseManager.GetCourse(i, j, null, null);
+
+                        var currentWeek = userdata.attachmentBO.nowWeekMsg.nowWeek.ToString();
+                        var course = await Class.Model.CourseManager.GetCourse(i, j, null, null, currentWeek);
                         if (course != null)
                         {
                             btn.Content = course.BtnContent;
                             btn.DataContext = course;
+                            
                             btn.Style = (Style)Resources["FullButtonStyle"];
                             btn.Background = new SolidColorBrush(Colors.Gray);
                             btn.Background.Opacity = 0.4;
-                            var weeks = course.period.Split(' ');
+                            var weeks = course.period.Split(' ', ',');
                             foreach (var item in weeks)
                             {
                                 if(item== userdata.attachmentBO.nowWeekMsg.nowWeek.ToString())

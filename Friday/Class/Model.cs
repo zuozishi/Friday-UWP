@@ -1281,7 +1281,7 @@ namespace Friday.Class
                 }
                 return CourseList;
             }
-            public static async Task<CourseModel> GetCourse(int day,int section,string yaer = null, string term = null)
+            public static async Task<CourseModel> GetCourse(int day, int section, string yaer = null, string term = null, string week = null)
             {
                 string filename = "course_";
                 if (yaer == null)
@@ -1292,9 +1292,12 @@ namespace Friday.Class
                 {
                     filename = filename + MD5.GetMd5String(yaer + term);
                 }
+
+                
                 var CourseFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Course", CreationCollisionOption.OpenIfExists);
                 var CourseFile = await CourseFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
                 var json = await FileIO.ReadTextAsync(CourseFile);
+                
                 ObservableCollection<CourseModel> CourseList;
                 if (json == "")
                 {
@@ -1310,13 +1313,37 @@ namespace Friday.Class
                 }else
                 {
                     CourseModel result = null;
+
+                    var resultList = new List<CourseModel>();
                     foreach (var item in CourseList)
                     {
                         if(item.day==day&&(item.sectionStart<=section&& section <= item.sectionEnd))
                         {
+                            resultList.Add(item);
                             result = item;
                         }
                     }
+                    
+                    var isWeekValid = int.TryParse(week, out int _week);
+
+
+                    if (resultList.Count > 1 && isWeekValid)
+                    {
+                        foreach (var item in resultList)
+                        {
+                            var weeks = item.smartPeriod.Split(' ');
+
+                            if (Array.IndexOf(weeks, week) >= 0)
+                            {
+                                result = item;
+                                break;
+                            }
+                        }
+                        
+                    }
+                    
+                    
+
                     return result;
                 }
             }

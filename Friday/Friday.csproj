@@ -11,7 +11,7 @@
     <AssemblyName>Friday</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -787,20 +787,22 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FridayBgTask">
-      <HintPath>..\FridayBgTask\bin\Debug\FridayBgTask.winmd</HintPath>
-    </Reference>
-    <Reference Include="FridayLib">
-      <HintPath>..\FridayBgTask\bin\Debug\FridayLib.dll</HintPath>
-    </Reference>
+    <WCFMetadataStorage Include="Service References\FridayCloudService\" />
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\FridayCloudService\" />
+    <ProjectReference Include="..\FridayBgTask\FridayBgTask.csproj">
+      <Project>{5c526040-097e-446b-ab1e-c1e9072a63d7}</Project>
+      <Name>FridayBgTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FridayLib\FridayLib.csproj">
+      <Project>{931dc096-c842-44fd-86f8-bd52a4d0225b}</Project>
+      <Name>FridayLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

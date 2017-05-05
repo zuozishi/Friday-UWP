@@ -11,7 +11,7 @@
     <AssemblyName>DiDiLite</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -189,9 +189,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UrlmonLibrary">
-      <HintPath>..\UrlmonLibrary\bin\Release\UrlmonLibrary.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\UrlmonLibrary\UrlmonLibrary.csproj">
+      <Project>{74e88873-63a8-41b5-9e3d-2c3898740e57}</Project>
+      <Name>UrlmonLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
