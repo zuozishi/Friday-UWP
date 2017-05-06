@@ -102,11 +102,13 @@ namespace Friday.Views.Course
             {
                 get
                 {
-                    var weeks = smartPeriod.Split(' ');
+                    string[] weeks;
+                    if (smartPeriod != null) weeks = smartPeriod.Split(' '); else weeks = period.Split(' ', ',');
+
                     var firstWeekValid = int.TryParse(weeks[0], out int firstWeek);
                     var lastWeekValid = int.TryParse(weeks[weeks.Count() - 1], out int lastWeek);
 
-                    if (firstWeekValid && lastWeekValid && (lastWeek-firstWeek == weeks.Count() - 1))
+                    if (firstWeekValid && lastWeekValid && (lastWeek - firstWeek == weeks.Count() - 1))
                     {
                         return weeks[0] + "-" + weeks[weeks.Count() - 1] + "周";
                     }

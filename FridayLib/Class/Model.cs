@@ -48,8 +48,13 @@ namespace FridayBgTask.Class
                         string result = "";
                         if (period!="")
                         {
-                            var weeks = period.Split(' ');
-                            if ((int.Parse(weeks[weeks.Count() - 1]) - int.Parse(weeks[0])) == (weeks.Count() - int.Parse(weeks[0])))
+                            string[] weeks;
+                            if (smartPeriod != null) weeks = smartPeriod.Split(' '); else weeks = period.Split(' ', ',');
+
+                            var firstWeekValid = int.TryParse(weeks[0], out int firstWeek);
+                            var lastWeekValid = int.TryParse(weeks[weeks.Count() - 1], out int lastWeek);
+
+                            if (firstWeekValid && lastWeekValid && (lastWeek - firstWeek == weeks.Count() - 1))
                             {
                                 result = weeks[0] + "-" + weeks[weeks.Count() - 1] + "周";
                             }
@@ -291,7 +296,7 @@ namespace FridayBgTask.Class
                 }
                 return CourseList;
             }
-            public static async Task<CourseModel> GetCourse(int day,int section,string yaer = null, string term = null)
+            public static async Task<CourseModel> GetCourse(int day, int section, string yaer = null, string term = null, string week = null)
             {
                 string filename = "course_";
                 if (yaer == null)
@@ -302,9 +307,12 @@ namespace FridayBgTask.Class
                 {
                     filename = filename + MD5.GetMd5String(yaer + term);
                 }
+
+
                 var CourseFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Course", CreationCollisionOption.OpenIfExists);
                 var CourseFile = await CourseFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
                 var json = await FileIO.ReadTextAsync(CourseFile);
+
                 ObservableCollection<CourseModel> CourseList;
                 if (json == "")
                 {
@@ -317,16 +325,41 @@ namespace FridayBgTask.Class
                 if (CourseList == null)
                 {
                     return null;
-                }else
+                }
+                else
                 {
                     CourseModel result = null;
+
+                    var resultList = new List<CourseModel>();
                     foreach (var item in CourseList)
                     {
-                        if(item.day==day&&(item.sectionStart<=section&& section <= item.sectionEnd))
+                        if (item.day == day && (item.sectionStart <= section && section <= item.sectionEnd))
                         {
+                            resultList.Add(item);
                             result = item;
                         }
                     }
+
+                    var isWeekValid = int.TryParse(week, out int _week);
+
+
+                    if (resultList.Count > 1 && isWeekValid)
+                    {
+                        foreach (var item in resultList)
+                        {
+                            var weeks = item.smartPeriod.Split(' ');
+
+                            if (Array.IndexOf(weeks, week) >= 0)
+                            {
+                                result = item;
+                                break;
+                            }
+                        }
+
+                    }
+
+
+
                     return result;
                 }
             }

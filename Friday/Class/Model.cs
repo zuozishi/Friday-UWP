@@ -1030,8 +1030,13 @@ namespace Friday.Class
                         string result = "";
                         if (period!="")
                         {
-                            var weeks = period.Split(' ');
-                            if ((int.Parse(weeks[weeks.Count() - 1]) - int.Parse(weeks[0])) == (weeks.Count() - int.Parse(weeks[0])))
+                            string[] weeks;
+                            if (smartPeriod != null) weeks = smartPeriod.Split(' '); else weeks = period.Split(' ', ',');
+
+                            var firstWeekValid = int.TryParse(weeks[0], out int firstWeek);
+                            var lastWeekValid = int.TryParse(weeks[weeks.Count() - 1], out int lastWeek);
+
+                            if (firstWeekValid && lastWeekValid && (lastWeek - firstWeek == weeks.Count() - 1))
                             {
                                 result = weeks[0] + "-" + weeks[weeks.Count() - 1] + "周";
                             }
@@ -1331,7 +1336,9 @@ namespace Friday.Class
                     {
                         foreach (var item in resultList)
                         {
-                            var weeks = item.smartPeriod.Split(' ');
+                            string[] weeks;
+                            if (item.smartPeriod != null) weeks = item.smartPeriod.Split(' '); else weeks = item.period.Split(' ', ',');
+                            weeks = item.smartPeriod.Split(' ');
 
                             if (Array.IndexOf(weeks, week) >= 0)
                             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Friday.Class;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,9 +40,12 @@ namespace Friday.Views.Course
             {
                 course = new CourseModel()
                 {
-                    day=1,
-                    period="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25",
-                    sectionStart=1,
+                    day = 1,
+                    period = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25",
+                    beginYear = UserManager.UserData.beginYear,
+                    endYear = UserManager.UserData.beginYear,
+                    term = UserManager.UserData.term,
+                    sectionStart =1,
                     sectionEnd=1
                 };
             }else if((e.Parameter as int[]) != null)
@@ -49,7 +53,10 @@ namespace Friday.Views.Course
                 course = new CourseModel()
                 {
                     day = (e.Parameter as int[])[0],
-                    period = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25",
+                    period = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25",
+                    beginYear = UserManager.UserData.beginYear,
+                    endYear = UserManager.UserData.beginYear,
+                    term = UserManager.UserData.term,
                     sectionStart = (e.Parameter as int[])[1],
                     sectionEnd = (e.Parameter as int[])[1]
                 };
@@ -127,7 +134,7 @@ namespace Friday.Views.Course
                         Grid.SetColumn(btn, j);
                         btn.BorderThickness = new Thickness(0.5);
                         btn.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 110, 110, 110));
-                        if(course.period.Split(' ').Contains(num.ToString()))
+                        if(course.period.Split(' ', ',').Contains(num.ToString()))
                         {
                             btn.IsChecked = true;
                         }
@@ -157,10 +164,10 @@ namespace Friday.Views.Course
                     {
                         if((item as ToggleButton).IsChecked == true)
                         {
-                            newweek = newweek + (item as ToggleButton).Content.ToString() + " ";
+                            newweek = newweek + (item as ToggleButton).Content.ToString() + ",";
                         }
                     }
-                    if(newweek.Replace(" ", "") == "")
+                    if(newweek.Replace(",", "") == "")
                     {
                         Class.Tools.ShowMsgAtFrame("请选择周数");
                     }
@@ -168,6 +175,7 @@ namespace Friday.Views.Course
                     {
                         newweek=newweek.Remove(newweek.Length - 1);
                         course.period = newweek;
+                        course.smartPeriod = newweek.Replace(",", " ");
                         course.RaisePropertyChanged("weektext");
                     }
                 }
@@ -190,7 +198,9 @@ namespace Friday.Views.Course
                 startseclist.SelectionChanged += (s, arg) =>
                 {
                     var seclist = s as ListView;
+                    if (seclist.SelectedItem == null) return;
                     endseclist.Items.Clear();
+                    
                     for (int i = (int)seclist.SelectedItem; i <= Class.UserManager.UserData.maxCount; i++)
                     {
                         endseclist.Items.Add(i);
@@ -213,11 +223,11 @@ namespace Friday.Views.Course
 
         private async void AddBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            if (course.name == "")
+            if (course.name != null && course.name != "")
             {
                 var courselist = await Class.Model.CourseManager.GetCourse();
                 var json = Class.Data.Json.ToJsonData(courselist);
-                if (json.Contains(course.id))
+                if (course.id!=null && json.Contains(course.id))
                 {
                     var dialog = new Controls.DialogBox()
                     {
@@ -260,7 +270,9 @@ namespace Friday.Views.Course
             {
                 get
                 {
-                    var weeks = smartPeriod.Split(' ');
+                    string[] weeks;
+                    if (smartPeriod != null) weeks = smartPeriod.Split(' '); else weeks = period.Split(' ', ',');
+
                     var firstWeekValid = int.TryParse(weeks[0], out int firstWeek);
                     var lastWeekValid = int.TryParse(weeks[weeks.Count() - 1], out int lastWeek);
 

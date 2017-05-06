@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="260916E2A81CC.1477737A0E663" Publisher="CN=A886177F-54CC-4C7C-810E-A20DBDE691E6" Version="1.1.1.0" />
+  <Identity Name="260916E2A81CC.1477737A0E663" Publisher="CN=driver1998" Version="1.1.1.0" />
   <mp:PhoneIdentity PhoneProductId="1f4af87f-f2d8-41cc-8599-64c89ca85777" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>超级课程表UWP</DisplayName>
@@ -25,6 +25,9 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#66ccff" />
       </uap:VisualElements>
       <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="xtuonesuperfriday" />
+        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="FridayBgTask.TileUpdate">
           <BackgroundTasks>
             <Task Type="systemEvent" />
@@ -33,9 +36,6 @@
             <Task Type="deviceUse" />
           </BackgroundTasks>
         </Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="xtuonesuperfriday" />
-        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
