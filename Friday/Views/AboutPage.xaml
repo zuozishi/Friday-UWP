@@ -23,8 +23,7 @@
                         <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords" Margin="5" FontSize="18">超级课程表 第三方UWP</TextBlock>
                         <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords" Margin="5" FontSize="18" x:Name="ver_text"></TextBlock>
 
-                        <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords" Margin="5">@座子狮(zuozishi)</TextBlock>
-
+                        <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords" Margin="5">初生之鸟 driver1998</TextBlock>
                     </StackPanel>
 
                 </StackPanel>
@@ -33,41 +32,26 @@
 
                     <TextBlock TextWrapping="WrapWholeWords" Margin="5" FontSize="18">说明及联系</TextBlock>
 
-                    <TextBlock TextWrapping="WrapWholeWords">本程序开源，不用于商业用途，仅做学习交流</TextBlock>
+                    <TextBlock TextWrapping="WrapWholeWords">本程序基于@座子狮(zuozishi)的工作<LineBreak></LineBreak>在此表示感谢<LineBreak></LineBreak></TextBlock>
 
-                    <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords">交流群：192101837</TextBlock>
+                    <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords">Email:driver1998@foxmail.com</TextBlock>
 
-                    <TextBlock TextWrapping="WrapWholeWords">如果侵犯您的合法权益，请及时联系本人第一时间删除</TextBlock>
-
-                    <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords">Email:wwb123123@outlook.com</TextBlock>
-
-                    <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords">QQ:992601314</TextBlock>
+                    <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords">QQ:532885675</TextBlock>
 
                     <StackPanel Orientation="Horizontal">
 
-                        <HyperlinkButton NavigateUri="mailto:wwb123123@outlook.com" Margin="0,0,15,0">给我发邮件</HyperlinkButton>
+                        <HyperlinkButton NavigateUri="mailto:driver1998@foxmail.com" Margin="0,0,15,0">给我发邮件</HyperlinkButton>
 
-                        <HyperlinkButton NavigateUri="https://github.com/zuozishi/Friday-UWP">访问Github</HyperlinkButton>
+                        <HyperlinkButton NavigateUri="https://github.com/driver1998/Friday-UWP">访问Github</HyperlinkButton>
 
                     </StackPanel>
 
                 </StackPanel>
 
-                <StackPanel>
-
-                    <TextBlock TextWrapping="WrapWholeWords" Margin="5" FontSize="18">捐赠及支持</TextBlock>
-
-                    <TextBlock TextWrapping="WrapWholeWords">如果觉得好用请给我点支持</TextBlock>
-
-                    <TextBlock IsTextSelectionEnabled="True" TextWrapping="WrapWholeWords">支付宝：wwb123123@outlook.com,**斌</TextBlock>
-
-                    <TextBlock TextWrapping="WrapWholeWords">哔哩哔哩ID：<Hyperlink NavigateUri="http://space.bilibili.com/9974235">技术菌座子狮</Hyperlink></TextBlock>
-
-                </StackPanel>
 
                 <StackPanel>
 
-                    <TextBlock TextWrapping="WrapWholeWords" Margin="5" FontSize="18">其它应用</TextBlock>
+                    <TextBlock TextWrapping="WrapWholeWords" Margin="5" FontSize="18">座子狮(zuozishi) 其它应用</TextBlock>
                     <HyperlinkButton NavigateUri="ms-windows-store://pdp/?productid=9p1l6rlcfr5r" Margin="0,0,15,0">滴滴出行Lite</HyperlinkButton>
                     <HyperlinkButton NavigateUri="ms-windows-store://pdp/?productid=9nblggh42png" Margin="0,0,15,0">快递追踪</HyperlinkButton>
                 </StackPanel>
@@ -75,6 +59,7 @@
                 <StackPanel>
                     <TextBlock TextWrapping="WrapWholeWords" Margin="5" FontSize="18">引用及参考</TextBlock>
                     <HyperlinkButton NavigateUri="http://www.super.cn/" Margin="0,0,15,0">超级课程表/源数据</HyperlinkButton>
+                    <HyperlinkButton NavigateUri="https://github.com/zuozishi/Friday-UWP" Margin="0,0,15,0">超级课程表UWP @座子狮(zuozishi)</HyperlinkButton>
                     <HyperlinkButton NavigateUri="http://www.newtonsoft.com/json" Content="Newtonsoft/JSON.NET"/>
                     <HyperlinkButton NavigateUri="https://github.com/EdiWang/UWP-Helpers/" Content="Edi.UWP.Helpers"/>
                     <HyperlinkButton NavigateUri="https://github.com/brookshi/LLMAnimator" Content="LLMAnimator"/>

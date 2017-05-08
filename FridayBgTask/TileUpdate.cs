@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FridayBgTask.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -7,22 +8,35 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
+using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Imaging;
+using static FridayBgTask.Class.Model;
 
 namespace FridayBgTask
 {
     public sealed class TileUpdate : IBackgroundTask
     {
+        ApplicationDataContainer localSetting = ApplicationData.Current.LocalSettings;
+        int currentWeek = -1;
+
         async void IBackgroundTask.Run(IBackgroundTaskInstance taskInstance)
         {
+           
             var _taskDeferral = taskInstance.GetDeferral();
             await UpdateTile();
             _taskDeferral.Complete();
         }
         private async Task UpdateTile()
         {
+            var jsonString = (string)localSetting.Values["userdata"];
+            if (jsonString != null)
+            {
+                var userdata = Data.Json.DataContractJsonDeSerialize<User.Login_Result>(jsonString);
+                currentWeek = (userdata.attachmentBO.nowWeekMsg.nowWeek);
+            }
+
             var course=await Class.Model.CourseManager.GetCourse();
             var updater = TileUpdateManager.CreateTileUpdaterForApplication();
             updater.EnableNotificationQueueForWide310x150(true);
@@ -38,6 +52,13 @@ namespace FridayBgTask
                 if (week == 0) week = 7;
                 foreach (var item in course)
                 {
+                    if (week != -1)
+                    {
+                        string[] weeks;
+                        if (item.smartPeriod != null) weeks = item.smartPeriod.Split(' '); else weeks = item.period.Split(' ', ',');
+                        if (Array.IndexOf(weeks, currentWeek.ToString()) < 0) continue;
+                    }
+
                     if (item.day == week) newcourselist.Add(item);
                 }
                 if (newcourselist.Count > 0)
@@ -47,6 +68,7 @@ namespace FridayBgTask
                         setBadgeNumber(newcourselist.Count);
                         foreach (var n in newcourselist)
                         {
+
                             var doc = new XmlDocument();
                             var xml = "";
                             if (n.sectionStart == n.sectionEnd)
