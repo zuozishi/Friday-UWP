@@ -28,9 +28,29 @@ namespace Friday.Class
         }
         public static async Task<Model.User.Login_Result> Login(string account,string password,bool relogin = false)
         {
+            var auto_login = false;
+
             try
             {
                 var localData = Windows.Storage.ApplicationData.Current.LocalSettings;
+                if(account == "" && localData.Values.ContainsKey("prev_account") && !relogin)
+                {
+                    auto_login = true;
+
+                    account = (string)localData.Values["prev_account"];
+                    
+                    if (localData.Values.ContainsKey("pw_" + account) && account!="" && account!=null)
+                    {
+                        
+                        password = (string)localData.Values["pw_" + account];
+                        account = (string)localData.Values["ac_" + account];
+                    }
+                    else
+                    {
+                        return UserManager.UserData;
+                    }
+                }
+                else
                 if (localData.Values.ContainsKey("ac_" + account)&&!relogin)
                 {
                     password = (string)localData.Values["pw_" + account];
@@ -38,6 +58,7 @@ namespace Friday.Class
                 }else
                 {
                     var service = new FridayCloudService.ServiceClient(FridayCloudService.ServiceClient.EndpointConfiguration.BasicHttpBinding_IService);
+                    localData.Values["prev_account"] = account;
                     localData.Values["ac_" + account] = await service.EncryptDataAsync(account);
                     localData.Values["pw_" + account] = await service.EncryptDataAsync(password);
                     account = await service.EncryptDataAsync(account);
@@ -86,11 +107,16 @@ namespace Friday.Class
                 }
                 else
                 {
+
                     return null;
                 }
             }
             catch (Exception)
             {
+                if (auto_login)
+                {
+                    if (UserData != null) return UserData;
+                }
                 return null;
             }
 
@@ -104,6 +130,7 @@ namespace Friday.Class
                 localData.Values.Remove("userdata");
                 localData.Values.Remove("usercookie");
                 localData.Values.Remove("userserverid");
+                localData.Values.Remove("prev_account");
             }
             catch (Exception)
             {

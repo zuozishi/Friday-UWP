@@ -41,7 +41,7 @@ namespace Friday
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -79,10 +79,13 @@ namespace Friday
                     Edi.UWP.Helpers.UI.SetWindowsMobileStatusBarColor(Colors.White, Color.FromArgb(255, 7, 153, 252));
                     if (Class.UserManager.islogin)
                     {
+                        
                         if(!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("coursebg"))
                         {
                             Windows.Storage.ApplicationData.Current.LocalSettings.Values["coursebg"] = "ms-appx:///Assets/images/CoursePics/1.png";
                         }
+
+                        Windows.Storage.ApplicationData.Current.LocalSettings.Values["userdata"] = Class.Data.Json.ToJsonData(await Class.UserManager.Login("", ""));
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
                     }
                     else
@@ -97,7 +100,7 @@ namespace Friday
             }
         }
 
-        protected override void OnActivated(IActivatedEventArgs args)
+        protected async override void OnActivated(IActivatedEventArgs args)
         {
             if(args.Kind==ActivationKind.Protocol)
             {
@@ -120,6 +123,9 @@ namespace Friday
                     {
                         Windows.Storage.ApplicationData.Current.LocalSettings.Values["coursebg"] = "ms-appx:///Assets/images/CoursePics/1.png";
                     }
+                    
+
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userdata"] = Class.Data.Json.ToJsonData(await Class.UserManager.Login("", ""));
                     rootFrame.Navigate(typeof(MainPage));
                 }
                 else
