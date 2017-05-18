@@ -96,7 +96,7 @@ namespace Friday.Class
                         if (time > 0)
                         {
                             var dt = TimeSpan.FromMilliseconds(time);
-                            userdata.attachmentBO.nowWeekMsg.nowWeek = userdata.attachmentBO.nowWeekMsg.nowWeek + int.Parse(Math.Floor(dt.TotalDays).ToString()) % 7;
+                            userdata.attachmentBO.nowWeekMsg.nowWeek = userdata.attachmentBO.nowWeekMsg.nowWeek + int.Parse(Math.Floor(dt.TotalDays).ToString()) / 7;
                         }
                     }
                     catch (Exception)
