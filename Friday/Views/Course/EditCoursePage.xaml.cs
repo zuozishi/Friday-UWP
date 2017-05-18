@@ -188,7 +188,7 @@ namespace Friday.Views.Course
                 weeklist.Items.Clear();
                 for (int i = 1; i <= 7; i++)
                 {
-                    weeklist.Items.Add(Class.Data.Int_String.NumberToChinese(i.ToString()));
+                    weeklist.Items.Add(Class.Data.Int_String.GetWeekString(i.ToString()));
                 }
                 startseclist.Items.Clear();
                 for (int i = 1; i <= Class.UserManager.UserData.maxCount; i++)
@@ -290,7 +290,7 @@ namespace Friday.Views.Course
                 get
                 {
                     string result = "";
-                    result = " 周" + Class.Data.Int_String.NumberToChinese(day.ToString());
+                    result = " 周" + Class.Data.Int_String.GetWeekString (day.ToString());
                     result = result + " ";
                     if (sectionStart == sectionEnd)
                     {

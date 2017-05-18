@@ -123,7 +123,7 @@ namespace Friday.Views.Course
                 get
                 {
                     string result = "";
-                    result = " 周" + Class.Data.Int_String.NumberToChinese(day.ToString());
+                    result = " 周" + Class.Data.Int_String.GetWeekString (day.ToString());
                     result = result + " ";
                     if (sectionStart == sectionEnd)
                     {

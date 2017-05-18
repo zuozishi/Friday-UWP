@@ -73,6 +73,19 @@ namespace Friday.Class
                     return NumberToChinese(((int)week).ToString());
                 }
             }
+            public static string GetWeekString (string weekIntStr)
+            {
+                if (!int.TryParse(weekIntStr, out int week)) return "";
+
+                if (week == 0 || week>6 )
+                {
+                    return "日";
+                }
+                else
+                {
+                    return NumberToChinese(((int)week).ToString());
+                }
+            }
         }
         public class Urls
         {

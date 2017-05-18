@@ -280,7 +280,7 @@ namespace Friday.Views.MainPages
                     {
                         newday = DateTime.Today + TimeSpan.FromDays(i - week);
                     }
-                    var grid = (Grid)XamlReader.Load(gridxaml.Replace("{0}", i.ToString()).Replace("{1}", newday.Day.ToString()).Replace("{2}", Class.Data.Int_String.NumberToChinese(i.ToString())));
+                    var grid = (Grid)XamlReader.Load(gridxaml.Replace("{0}", i.ToString()).Replace("{1}", newday.Day.ToString()).Replace("{2}", Class.Data.Int_String.GetWeekString(i.ToString())));
                     if (week == i) grid.Background = new SolidColorBrush(Color.FromArgb(100, 7, 153, 252));
                     CourseGrid.Children.Add(grid);
                 }

@@ -1044,7 +1044,7 @@ namespace Friday.Class
                             {
                                 result = period + "周";
                             }
-                            result = result + " 周" + Data.Int_String.NumberToChinese(day.ToString());
+                            result = result + " 周" + Data.Int_String.GetWeekString (day.ToString());
                             result = result + " ";
                             if (sectionStart == sectionEnd)
                             {

@@ -57,7 +57,7 @@ namespace Friday.Views.Course
                     SearchTextBox.Style = (Style)Resources["TextBoxStyle2"];
                     CourseList.Style = (Style)Resources["CourseListStyle"];
                     FilderBtn.Visibility = Visibility.Visible;
-                    FilderText = string.Format("周{0} 第{1}节",Class.Data.Int_String.NumberToChinese(day),section);
+                    FilderText = string.Format("周{0} 第{1}节",Class.Data.Int_String.GetWeekString(day),section);
                     await LoadData(section,day);
                 }
             }
