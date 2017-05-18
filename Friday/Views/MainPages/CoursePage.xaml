@@ -13,6 +13,7 @@
             <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
             <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
             <Setter Property="Padding" Value="8,4,8,4"/>
+            <Setter Property="Margin" Value="2,2,0,0"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
@@ -70,7 +71,7 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                            <ContentPresenter x:Name="ContentPresenter" Foreground="{TemplateBinding Foreground}" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -143,7 +144,7 @@
                         <ImageBrush x:Name="mainGridImage" Stretch="Fill"/>
                     </Grid.Background>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="75"/>
                         <ColumnDefinition Width="75"/>
                         <ColumnDefinition Width="75"/>

@@ -86,6 +86,12 @@ namespace Friday.Class
                     return NumberToChinese(((int)week).ToString());
                 }
             }
+            public static string GetMonthString (int month)
+            {
+                if (month < 1 || month > 12) return "";
+                string[] monthString = { "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月" };
+                return monthString[month - 1];
+            }
         }
         public class Urls
         {

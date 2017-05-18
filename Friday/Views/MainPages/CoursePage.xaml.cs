@@ -256,10 +256,13 @@ namespace Friday.Views.MainPages
                 }
                 for (int i = 0; i < CourseGrid.RowDefinitions.Count; i++)
                 {
-                    string gridxaml = "<Grid xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" BorderThickness=\"0.25\" BorderBrush=\"#FFBFBFBF\" Grid.Row=\"{0}\" Grid.Column=\"0\"><TextBlock FontSize=\"13\" TextWrapping=\"WrapWholeWords\" HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\" Foreground=\"{ThemeResource Friday-Foreground}\">{1}</TextBlock></Grid>";
+                    string gridxaml =
+                        "<Grid xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" Grid.Row=\"{0}\" Grid.Column=\"0\" Background=\"#CCFFFFFF\">" +
+                            "<TextBlock FontSize=\"13\" TextWrapping=\"WrapWholeWords\" HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\" Foreground=\"{ThemeResource Friday-Foreground}\">{1}</TextBlock>" +
+                        "</Grid>";
                     if (i == 0)
                     {
-                        CourseGrid.Children.Add((Grid)XamlReader.Load(gridxaml.Replace("{0}", i.ToString()).Replace("{1}", DateTime.Today.Month + "月")));
+                        CourseGrid.Children.Add((Grid)XamlReader.Load(gridxaml.Replace("{0}", i.ToString()).Replace("{1}",Friday.Class.Data.Int_String.GetMonthString(DateTime.Today.Month))));
                     }
                     else
                     {
@@ -270,7 +273,15 @@ namespace Friday.Views.MainPages
                 {
                     int week = (int)DateTime.Today.DayOfWeek;
                     if (week == 0) week = 7;
-                    string gridxaml = "<Grid  xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" Grid.Row=\"0\" Grid.Column=\"{0}\" BorderBrush=\"{ThemeResource Friday-BorderBrush}\" BorderThickness=\"0.25\"><Grid.RowDefinitions><RowDefinition/><RowDefinition/></Grid.RowDefinitions><TextBlock Grid.Row=\"0\" FontSize=\"13\" Foreground=\"{ThemeResource Friday-Foreground}\" HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\">{1}</TextBlock><TextBlock Grid.Row=\"1\" FontSize=\"13\" Foreground=\"{ThemeResource Friday-Foreground}\" HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\">周{2}</TextBlock></Grid>";
+                    string gridxaml =
+                        "<Grid  xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" Grid.Row=\"0\" Grid.Column=\"{0}\" Background=\"#CCFFFFFF\">" +
+                            "<Grid.RowDefinitions>" +
+                                "<RowDefinition/>" +
+                                "<RowDefinition/>" +
+                            "</Grid.RowDefinitions>" +
+                            "<TextBlock FontSize=\"13\" Foreground=\"{ThemeResource Friday-Foreground}\" Grid.Row=\"1\" HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\">{1}</TextBlock>" +
+                            "<TextBlock FontSize=\"13\" Foreground=\"{ThemeResource Friday-Foreground}\" HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\">周{2}</TextBlock>" +
+                        "</Grid>";
                     DateTime newday;
                     if (week - i > 0)
                     {
@@ -280,7 +291,7 @@ namespace Friday.Views.MainPages
                     {
                         newday = DateTime.Today + TimeSpan.FromDays(i - week);
                     }
-                    var grid = (Grid)XamlReader.Load(gridxaml.Replace("{0}", i.ToString()).Replace("{1}", newday.Day.ToString()).Replace("{2}", Class.Data.Int_String.GetWeekString(i.ToString())));
+                    var grid = (Grid)XamlReader.Load(gridxaml.Replace("{0}", i.ToString()).Replace("{1}", newday.Day.ToString() + "日").Replace("{2}", Class.Data.Int_String.GetWeekString(i.ToString())));
                     if (week == i) grid.Background = new SolidColorBrush(Color.FromArgb(100, 7, 153, 252));
                     CourseGrid.Children.Add(grid);
                 }
@@ -321,8 +332,18 @@ namespace Friday.Views.MainPages
                             var weeks = course.period.Split(' ', ',');
                             foreach (var item in weeks)
                             {
+                                    if (course.sectionStart == j)
+                                    {
+                                        Grid.SetRowSpan(btn, course.sectionEnd - course.sectionStart+1);
+                                    }
+                                    else
+                                    {
+                                        btn.Visibility = Visibility.Collapsed;
+                                    }
+
                                 if(item== userdata.attachmentBO.nowWeekMsg.nowWeek.ToString())
                                 {
+
                                     btn.Background = new SolidColorBrush(course.CourseButton.BackgroundColor);
                                     btn.Background.Opacity = 1;
                                 }
