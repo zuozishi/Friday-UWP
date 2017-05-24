@@ -92,12 +92,20 @@ namespace Friday.Class
                     try
                     {
                         await Class.Model.CourseManager.Async.GetCourseTableFromServer();
-                        var time = long.Parse(Class.HttpPostUntil.NowTime) - userdata.attachmentBO.nowWeekMsg.setTime;
-                        if (time > 0)
+
+                        //将setTime转为本地时间
+                        var setTimeVar = (new DateTime(1970, 1, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(userdata.attachmentBO.nowWeekMsg.setTime)).ToLocalTime();
+
+                        var dayOfWeek =(int)setTimeVar.DayOfWeek;
+                        if (dayOfWeek == 0) dayOfWeek = 7;
+                        var delta = (DateTime.Now - setTimeVar).TotalDays;
+
+
+                        if (delta > 0)
                         {
-                            var dt = TimeSpan.FromMilliseconds(time);
-                            userdata.attachmentBO.nowWeekMsg.nowWeek = userdata.attachmentBO.nowWeekMsg.nowWeek + int.Parse(Math.Floor(dt.TotalDays).ToString()) / 7;
+                            userdata.attachmentBO.nowWeekMsg.nowWeek = userdata.attachmentBO.nowWeekMsg.nowWeek + int.Parse(Math.Floor(delta+dayOfWeek).ToString()) / 7;
                         }
+
                     }
                     catch (Exception)
                     {

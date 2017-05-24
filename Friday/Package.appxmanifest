@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="260916E2A81CC.1477737A0E663" Publisher="CN=driver1998" Version="1.1.1.0" />
+  <Identity Name="260916E2A81CC.1477737A0E663" Publisher="CN=driver1998" Version="1.1.5.0" />
   <mp:PhoneIdentity PhoneProductId="1f4af87f-f2d8-41cc-8599-64c89ca85777" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>超级课程表UWP</DisplayName>
-    <PublisherDisplayName>座子狮</PublisherDisplayName>
+    <PublisherDisplayName>初生之鸟</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -19,17 +19,14 @@
         <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BadgeLogo.png" />
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="超级课程表" Square310x310Logo="Assets\Square310x310Logo.png" Square71x71Logo="Assets\Square71x71Logo.png">
           <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
             <uap:ShowOn Tile="square310x310Logo" />
-			<uap:ShowOn Tile="wide310x150Logo" />
-			<uap:ShowOn Tile="square150x150Logo" />
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#66ccff" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="xtuonesuperfriday" />
-        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="FridayBgTask.TileUpdate">
           <BackgroundTasks>
             <Task Type="systemEvent" />
@@ -38,6 +35,9 @@
             <Task Type="deviceUse" />
           </BackgroundTasks>
         </Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="xtuonesuperfriday" />
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
